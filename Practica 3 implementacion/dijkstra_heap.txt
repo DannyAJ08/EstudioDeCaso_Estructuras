@@ -1,0 +1,58 @@
+Práctica 3 - Estructuras de Datos 
+
+¿Qué es el algoritmo de Dijkstra?
+
+El algoritmo de Dijkstra es un algoritmo de búsqueda de caminos más
+cortos en un grafo ponderado con pesos no negativos. Dado un nodo
+fuente, calcula la distancia mínima desde ese nodo hacia todos los
+demás nodos del grafo.
+
+El algoritmo mantiene un conjunto de nodos "no visitados" y en cada
+iteración selecciona el nodo con la distancia acumulada más pequeña
+para procesarlo y relajar sus aristas vecinas.
+
+
+¿Por qué se usan montículos en Dijkstra?
+
+El paso crítico del algoritmo es encontrar, en cada iteración, el nodo
+no visitado con la menor distancia acumulada. Si este paso se realiza
+con una búsqueda lineal sobre todos los nodos, la complejidad total del
+algoritmo es O(V²), donde V es el número de vértices.
+
+Al emplear un montículo mínimo (min-heap) como cola de prioridad, este
+paso se realiza en tiempo O(log V), ya que la raíz del montículo siempre
+contiene el elemento con la menor prioridad (menor distancia).
+
+
+Integración concreta con Dijkstra
+
+1. Inicializacion:
+   - Se inserta el nodo fuente con distancia 0 en el min-heap.
+   - Todos los demás nodos se insertan con distancia infinita, o bien
+     se agregan al heap conforme se descubren (versión lazy).
+
+2. Iteración principalL:
+   - Se extrae el mínimo del heap mediante eliminarMin(). Esto
+     retorna el nodo con la menor distancia conocida hasta el momento.
+   - Se examinan todos los vecinos del nodo extraído.
+   - Si la distancia acumulada hasta un vecino mejora, se actualiza
+     su valor en el heap (operación decrease-key) o se inserta una
+     nueva entrada con la distancia mejorada (versión lazy).
+
+3. repeticion:
+   - El proceso continúa hasta que el heap quede vacío o se llegue
+     al nodo destino.
+
+
+
+
+Conclusión
+
+El min-heap es fundamental para que Dijkstra funcione eficientemente.
+Gracias a la propiedad de que la raíz siempre es el mínimo, se puede
+obtener en O(log n) el nodo con menor distancia acumulada, reduciendo
+drásticamente el tiempo de ejecución en grafos grandes. Esta es la razón
+por la que en la práctica, la mayoría de implementaciones de Dijkstra
+para grafos grandes utilizan una cola de prioridad basada en un heap.
+
+
